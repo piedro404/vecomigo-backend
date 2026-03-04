@@ -7,6 +7,7 @@ import { createServer } from "http";
 import { initSocket } from "./config/socket-io.js";
 import appRouter from './routes/app.route.js';
 import { failure } from './utils/response.js';
+import { registerRoomSocket } from "./sockets/room.socket.js";
 
 const app: express.Application = express();
 
@@ -24,10 +25,7 @@ const startServer = async () => {
     const httpServer = createServer(app);
 
     const io = initSocket(httpServer);
-
-    io.on("connection", (socket) => {
-      logger.info(`🔌 Novo socket conectado: ${socket.id}`);
-    });
+    registerRoomSocket(io);
 
     httpServer.listen(PORT, () => {
       logger.info(`🚀 Server is running on http://localhost:${PORT}`);
