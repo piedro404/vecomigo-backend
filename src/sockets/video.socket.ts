@@ -12,6 +12,20 @@ const emitVideoState = (
 };
 
 export const registerVideoSocket = (io: Server, socket: Socket) => {
+    socket.on("add-video", ({ roomId, video, playNow = false }) => {
+        const state = videoService.add(roomId, video, playNow);
+        if (!state) return;
+
+        io.to(roomId).emit("video-state-updated", state);
+    });
+
+    socket.on("remove-video", ({ roomId, videoId }) => {
+        const state = videoService.remove(roomId, videoId);
+        if (!state) return;
+
+        io.to(roomId).emit("video-state-updated", state);
+    });
+
     socket.on("video:play", ({ roomId, currentTime }) => {
         logger.info({ socketId: socket.id, roomId, currentTime }, "video:play received");
 

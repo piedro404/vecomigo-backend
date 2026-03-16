@@ -3,6 +3,7 @@ import { roomService } from "@services/room.service";
 import { logger } from "@config/logger";
 import { failure } from "src/utils/response";
 import { ErrorCodes } from "src/utils/constants";
+import { registerVideoSocket } from "./video.socket";
 
 export const registerRoomSocket = (io: Server, socket: Socket) => {
     const socketUserMap = new Map<string, { roomId: string; userId: string }>();
@@ -92,4 +93,6 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
             });
         }
     });
+
+    registerVideoSocket(io, socket);
 };
