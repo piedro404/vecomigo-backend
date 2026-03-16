@@ -20,6 +20,15 @@
       "@routes/*": [
         "src/routes/*"
       ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@app-types/*": [
+        "src/types/*"
+      ],
+      "@sockets/*": [
+        "src/sockets/*"
+      ]
     },
     "strict": true,
     "esModuleInterop": true,

@@ -31,7 +31,6 @@ const startServer = async () => {
             registerRoomSocket(io, socket);
         });
         
-
         httpServer.listen(PORT, () => {
             logger.info(`🚀 Server is running on http://localhost:${PORT}`);
             logger.info(

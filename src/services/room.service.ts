@@ -1,32 +1,31 @@
 import { randomUUID } from "crypto";
-import { Room, RoomStatus } from "src/types/modules/room.types";
-import { User } from "src/types/modules/user.types";
+import { Room, RoomStatus } from "@app-types/modules/room.types";
+import { User } from "@app-types/modules/user.types";
 import { logger } from "@config/logger.js";
+
 class RoomService {
     private rooms = new Map<string, Room>();
 
-    createRoom(name: string, user: User) {
-        const id = randomUUID();
+    createRoom(host: User): Room {
+        const roomId = randomUUID();
 
         const room: Room = {
-            id,
-            name,
-            users: new Map(),
+            id: roomId,
+            users: new Map([[host.id, host]]),
             playlist: [],
-            currentVideoIndex: 0,
+            currentTime: 0,
+            isPlaying: false,
+            lastUpdate: Date.now(),
             status: RoomStatus.WAITING,
             createdAt: new Date(),
         };
 
-        room.users.set(user.id, user);
-        this.rooms.set(id, room);
-
+        this.rooms.set(roomId, room);
         logger.info(
             {
-                roomId: id,
-                roomName: name,
-                userId: user.id,
-                userName: user.name,
+                roomId: room.id,
+                userId: host.id,
+                userName: host.name,
             },
             "Room created",
         );
@@ -34,32 +33,24 @@ class RoomService {
         return room;
     }
 
-    getRoom(roomId: string) {
+    getRoom(roomId: string): Room | undefined {
         const room = this.rooms.get(roomId);
 
         if (!room) {
             logger.warn({ roomId }, "Room not found");
-            return null;
+            return undefined;
         }
 
-        logger.debug({ roomId }, "Room fetched");
+        logger.info({ roomId }, "Room retrieved");
 
         return room;
     }
 
-    addUser(roomId: string, user: User) {
-        const room = this.rooms.get(roomId);
-
-        if (!room) {
-            logger.warn(
-                { roomId, userId: user.id },
-                "Attempt to join non-existing room",
-            );
-            return null;
-        }
+    addUser(roomId: string, user: User): Room | undefined {
+        const room = this.getRoom(roomId);
+        if (!room) return undefined;
 
         room.users.set(user.id, user);
-
         logger.info(
             {
                 roomId,
@@ -73,28 +64,19 @@ class RoomService {
         return room;
     }
 
-    updateUser(roomId: string, user: User) {
+    updateUser(roomId: string, user: User): Room | undefined {
         const room = this.rooms.get(roomId);
-        if (!room) return null;
+        if (!room) return undefined;
 
         room.users.set(user.id, user);
-
         return room;
     }
 
-    removeUser(roomId: string, userId: string) {
+    removeUser(roomId: string, userId: string): Room | string | undefined {
         const room = this.rooms.get(roomId);
-
-        if (!room) {
-            logger.warn(
-                { roomId, userId },
-                "Attempt to leave non-existing room",
-            );
-            return;
-        }
+        if (!room) return undefined;
 
         room.users.delete(userId);
-
         logger.info(
             {
                 roomId,
@@ -106,17 +88,15 @@ class RoomService {
 
         if (room.users.size === 0) {
             this.rooms.delete(roomId);
-
-            logger.info({ roomId }, "Room deleted automatically (empty room)");
-
+            logger.info({ roomId }, "Room deleted due to no users");
             return "room-deleted";
         }
 
         return room;
     }
 
-    getAllRooms() {
-        logger.debug({ totalRooms: this.rooms.size }, "Fetching all rooms");
+    getAllRooms(): Room[] {
+        logger.info({ totalRooms: this.rooms.size }, "Fetching all rooms");
 
         return Array.from(this.rooms.values());
     }

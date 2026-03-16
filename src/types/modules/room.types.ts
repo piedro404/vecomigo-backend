@@ -1,18 +1,19 @@
-import { User } from "./user.types"
-import { Video } from "./video.types"
+import { User } from "./user.types";
+import { Video } from "./video.types";
 
 export enum RoomStatus {
-  WAITING = 'WAITING',
-  PLAYING = 'PLAYING',
-  PAUSED = 'PAUSED',
+    WAITING = "WAITING",
+    PLAYING = "PLAYING",
+    PAUSED = "PAUSED",
 }
 
 export type Room = {
-  id: string
-  name: string
-  users: Map<string, User>
-  playlist: Video[]
-  currentVideoIndex: number
-  status: RoomStatus
-  createdAt: Date
+    id: string;
+    users: Map<string, User>;
+    playlist: Video[];
+    currentTime: number;
+    isPlaying: boolean;
+    lastUpdate: number;
+    status: RoomStatus;
+    createdAt: Date;
 }
