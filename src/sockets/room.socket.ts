@@ -8,7 +8,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
     const socketUserMap = new Map<string, { roomId: string; userId: string }>();
 
     socket.on("create-room", ({ user }, callback) => {
-        const room = roomService.createRoom(user);
+        const room = roomService.create(user);
 
         socket.join(room.id);
         socketUserMap.set(socket.id, { roomId: room.id, userId: user.id });

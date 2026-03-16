@@ -6,7 +6,7 @@ import { logger } from "@config/logger.js";
 class RoomService {
     private rooms = new Map<string, Room>();
 
-    createRoom(host: User): Room {
+    create(host: User): Room {
         const roomId = randomUUID();
 
         const room: Room = {
@@ -95,7 +95,7 @@ class RoomService {
         return room;
     }
 
-    getAllRooms(): Room[] {
+    getAll(): Room[] {
         logger.info({ totalRooms: this.rooms.size }, "Fetching all rooms");
 
         return Array.from(this.rooms.values());
