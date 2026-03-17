@@ -12,14 +12,14 @@ const emitVideoState = (
 };
 
 export const registerVideoSocket = (io: Server, socket: Socket) => {
-    socket.on("add-video", ({ roomId, video, playNow = false }) => {
+    socket.on("video:add", ({ roomId, video, playNow = false }) => {
         const state = videoService.add(roomId, video, playNow);
         if (!state) return;
 
         emitVideoState(io, roomId, state);
     });
 
-    socket.on("remove-video", ({ roomId, videoId }) => {
+    socket.on("video:remove", ({ roomId, videoId }) => {
         const state = videoService.remove(roomId, videoId);
         if (!state) return;
 
