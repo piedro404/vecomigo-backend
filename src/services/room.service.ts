@@ -72,7 +72,7 @@ class RoomService {
         return room;
     }
 
-    removeUser(roomId: string, userId: string): Room | string | undefined {
+    removeUser(roomId: string, userId: string): Room | "room-deleted" | undefined {
         const room = this.rooms.get(roomId);
         if (!room) return undefined;
 

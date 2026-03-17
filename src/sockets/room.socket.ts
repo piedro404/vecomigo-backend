@@ -4,6 +4,7 @@ import { logger } from "@config/logger";
 import { failure, success } from "src/utils/response";
 import { ErrorCodes } from "src/utils/constants";
 import { registerVideoSocket } from "./video.socket";
+import { videoService } from "@services/video.service";
 
 export const registerRoomSocket = (io: Server, socket: Socket) => {
     const socketUserMap = new Map<string, { roomId: string; userId: string }>();
@@ -30,7 +31,12 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
         socket.join(roomId);
         socketUserMap.set(socket.id, { roomId, userId: user.id });
 
-        callback(success("Joined room", room));
+        callback(
+            success("Joined room", {
+                room,
+                videoState: videoService.getVideoState(roomId),
+            }),
+        );
         io.to(roomId).emit("room-updated", {
             users: Array.from(room.users.values()),
         });
@@ -65,11 +71,9 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
         }
 
         callback(success("Left room", room));
-        if (typeof room !== "string") {
-            io.to(roomId).emit("room-updated", {
-                users: Array.from(room.users.values()),
-            });
-        }
+        io.to(roomId).emit("room-updated", {
+            users: Array.from(room.users.values()),
+        });
     });
 
     socket.on("disconnect", () => {
