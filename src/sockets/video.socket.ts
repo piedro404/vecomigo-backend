@@ -5,10 +5,10 @@ import { logger } from "@config/logger";
 const emitVideoState = (
     io: Server,
     roomId: string,
-    state: ReturnType<typeof videoService.getVideoState>,
+    videoState: ReturnType<typeof videoService.getVideoState>,
 ) => {
-    if (!state) return;
-    io.to(roomId).emit("video-state-updated", state);
+    if (!videoState) return;
+    io.to(roomId).emit("video-state-updated", videoState);
 };
 
 export const registerVideoSocket = (io: Server, socket: Socket) => {
@@ -73,7 +73,7 @@ export const registerVideoSocket = (io: Server, socket: Socket) => {
         const state = videoService.getVideoState(roomId);
         if (!state) return;
 
-        socket.emit("video-state-updated", state);
+        emitVideoState(io, roomId, state); 
     });
 };
 
