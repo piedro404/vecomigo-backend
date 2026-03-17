@@ -16,14 +16,14 @@ export const registerVideoSocket = (io: Server, socket: Socket) => {
         const state = videoService.add(roomId, video, playNow);
         if (!state) return;
 
-        io.to(roomId).emit("video-state-updated", state);
+        emitVideoState(io, roomId, state);
     });
 
     socket.on("remove-video", ({ roomId, videoId }) => {
         const state = videoService.remove(roomId, videoId);
         if (!state) return;
 
-        io.to(roomId).emit("video-state-updated", state);
+        emitVideoState(io, roomId, state);
     });
 
     socket.on("video:play", ({ roomId, currentTime }) => {

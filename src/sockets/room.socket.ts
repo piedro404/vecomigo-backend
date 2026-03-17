@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io";
 import { roomService } from "@services/room.service";
 import { logger } from "@config/logger";
-import { failure } from "src/utils/response";
+import { failure, success } from "src/utils/response";
 import { ErrorCodes } from "src/utils/constants";
 import { registerVideoSocket } from "./video.socket";
 
@@ -14,7 +14,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
         socket.join(room.id);
         socketUserMap.set(socket.id, { roomId: room.id, userId: user.id });
 
-        callback(room);
+        callback(success("Room created", room));
         io.to(room.id).emit("room-updated", {
             users: Array.from(room.users.values()),
         });
@@ -30,7 +30,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
         socket.join(roomId);
         socketUserMap.set(socket.id, { roomId, userId: user.id });
 
-        callback(room);
+        callback(success("Joined room", room));
         io.to(roomId).emit("room-updated", {
             users: Array.from(room.users.values()),
         });
@@ -43,7 +43,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
             return;
         }
 
-        callback(room);
+        callback(success("User updated", room));
         io.to(roomId).emit("room-updated", {
             users: Array.from(room.users.values()),
         });
@@ -64,7 +64,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
             return;
         }
 
-        callback(room);
+        callback(success("Left room", room));
         if (typeof room !== "string") {
             io.to(roomId).emit("room-updated", {
                 users: Array.from(room.users.values()),
