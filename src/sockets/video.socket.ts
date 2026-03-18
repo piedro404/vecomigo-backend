@@ -8,7 +8,9 @@ const emitVideoState = (
     videoState: ReturnType<typeof videoService.getVideoState>,
 ) => {
     if (!videoState) return;
-    io.to(roomId).emit("video-state-updated", videoState);
+    io.to(roomId).emit("video-state-updated", {
+        videoState,
+    });
 };
 
 export const registerVideoSocket = (io: Server, socket: Socket) => {

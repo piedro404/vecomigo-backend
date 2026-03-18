@@ -23,6 +23,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
 
         io.to(room.id).emit("room-updated", {
             users: Array.from(room.users.values()),
+            videoState: videoService.getVideoState(room.id),
         });
     });
 
@@ -50,6 +51,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
 
         io.to(roomId).emit("room-updated", {
             users: Array.from(room.users.values()),
+            videoState: videoService.getVideoState(room.id),
         });
     });
 
@@ -69,6 +71,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
 
         io.to(roomId).emit("room-updated", {
             users: Array.from(room.users.values()),
+            videoState: videoService.getVideoState(room.id),
         });
     });
 
@@ -94,6 +97,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
 
         io.to(roomId).emit("room-updated", {
             users: Array.from(room.users.values()),
+            videoState: videoService.getVideoState(room.id),
         });
     });
 
@@ -117,6 +121,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
 
         io.to(roomId).emit("room-updated", {
             users: Array.from(room.users.values()),
+            videoState: videoService.getVideoState(room.id),
         });
     });
 
