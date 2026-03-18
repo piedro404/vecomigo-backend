@@ -77,6 +77,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
 
     socket.on("leave-room", ({ roomId, userId }, callback?: Ack) => {
         const room = roomService.removeUser(roomId, userId);
+        socketUserMap.delete(socket.id);
         socket.leave(roomId);
 
         if (!room) {
