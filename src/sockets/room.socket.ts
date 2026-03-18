@@ -110,8 +110,8 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
 
         const { roomId, userId } = userInfo;
         const room = roomService.removeUser(roomId, userId);
-
         socketUserMap.delete(socket.id);
+        socket.leave(roomId);
 
         if (!room) return;
 
