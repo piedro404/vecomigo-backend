@@ -1,5 +1,5 @@
-import { User } from "./user.types";
-import { Video } from "./video.types";
+import { User } from "./user.types.js";
+import { Video } from "./video.types.js";
 
 export enum RoomStatus {
     WAITING = "WAITING",

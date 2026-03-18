@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, response } from 'express';
-import { success } from '../utils/response.js';
+import { success } from '@utils/response.js';
 
 export async function home(
   req: Request,

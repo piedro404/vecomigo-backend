@@ -1,43 +1,27 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "lib": [
-      "ES2022",
-      "DOM"
-    ],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022", "DOM"],
     "outDir": "./dist",
     "rootDir": "./src",
+
     "baseUrl": "./",
     "paths": {
-      "@config/*": [
-        "src/config/*"
-      ],
-      "@controllers/*": [
-        "src/controllers/*"
-      ],
-      "@routes/*": [
-        "src/routes/*"
-      ],
-      "@services/*": [
-        "src/services/*"
-      ],
-      "@app-types/*": [
-        "src/types/*"
-      ],
-      "@sockets/*": [
-        "src/sockets/*"
-      ]
+      "@config/*": ["src/config/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@routes/*": ["src/routes/*"],
+      "@services/*": ["src/services/*"],
+      "@app-types/*": ["src/types/*"],
+      "@sockets/*": ["src/sockets/*"],
+      "@utils/*": ["src/utils/*"],
+      "@exceptions/*": ["src/exceptions/*"],
+      "@middlewares/*": ["src/middlewares/*"]
     },
+
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true
-  },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }

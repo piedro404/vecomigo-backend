@@ -1,10 +1,10 @@
 import { Server, Socket } from "socket.io";
-import { roomService } from "@services/room.service";
-import { logger } from "@config/logger";
-import { failure, success } from "src/utils/response";
-import { ErrorCodes } from "src/utils/constants";
-import { registerVideoSocket } from "./video.socket";
-import { videoService } from "@services/video.service";
+import { roomService } from "@services/room.service.js";
+import { logger } from "@config/logger.js";
+import { failure, success } from "@utils/response.js";
+import { ErrorCodes } from "@utils/constants.js";
+import { registerVideoSocket } from "./video.socket.js";
+import { videoService } from "@services/video.service.js";
 
 type Ack<T = any> = (response: T) => void;
 

@@ -1,4 +1,4 @@
-import { ErrorCodes } from "src/utils/constants";
+import { ErrorCodes } from "@utils/constants.js";
 
 export class HttpException extends Error {
     message: string;

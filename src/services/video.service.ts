@@ -1,7 +1,7 @@
-import { Room, RoomStatus } from "@app-types/modules/room.types";
-import { Video, VideoState } from "@app-types/modules/video.types";
-import { logger } from "@config/logger";
-import { roomService } from "@services/room.service";
+import { Room, RoomStatus } from "@app-types/modules/room.types.js";
+import { Video, VideoState } from "@app-types/modules/video.types.js";
+import { logger } from "@config/logger.js";
+import { roomService } from "@services/room.service.js";
 
 class VideoService {
     private calculateCurrentTime(room: Room): number {
@@ -67,7 +67,7 @@ class VideoService {
         if (!room) return undefined;
 
         const isCurrentVideo = room.playlist[0]?.id === videoId;
-        room.playlist = room.playlist.filter((v) => v.id !== videoId);
+        room.playlist = room.playlist.filter((v: Video) => v.id !== videoId);
 
         if (isCurrentVideo) {
             room.currentTime = 0;

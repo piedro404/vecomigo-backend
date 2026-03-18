@@ -1,5 +1,5 @@
-import { ErrorCodes, HTTP_STATUS } from "src/utils/constants";
-import { HttpException } from "./root";
+import { ErrorCodes, HTTP_STATUS } from "@utils/constants.js";
+import { HttpException } from "./root.js";
 
 export class BadRequestException extends HttpException {
     constructor(message: string, errorCode: ErrorCodes, errors: any = null) {

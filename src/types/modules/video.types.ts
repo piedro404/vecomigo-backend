@@ -1,4 +1,4 @@
-import { RoomStatus } from "./room.types";
+import { RoomStatus } from "./room.types.js";
 
 export type VideoState = {
     isPlaying: boolean;

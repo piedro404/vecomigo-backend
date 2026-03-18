@@ -1,6 +1,6 @@
 import { Server, Socket } from "socket.io";
-import { videoService } from "@services/video.service";
-import { logger } from "@config/logger";
+import { videoService } from "@services/video.service.js";
+import { logger } from "@config/logger.js";
 
 const emitVideoState = (
     io: Server,

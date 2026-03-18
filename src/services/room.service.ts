@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
-import { Room, RoomStatus } from "@app-types/modules/room.types";
-import { User } from "@app-types/modules/user.types";
+import { Room, RoomStatus } from "@app-types/modules/room.types.js";
+import { User } from "@app-types/modules/user.types.js";
 import { logger } from "@config/logger.js";
 
 class RoomService {

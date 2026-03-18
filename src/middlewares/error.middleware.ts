@@ -1,8 +1,8 @@
-import { logger } from "@config/logger";
+import { logger } from "@config/logger.js";
 import { NextFunction, Request, Response } from "express";
-import { HttpException } from "src/exceptions/root";
-import { ErrorCodes, HTTP_STATUS } from "src/utils/constants";
-import { failure } from "src/utils/response";
+import { HttpException } from "@exceptions/root.js";
+import { ErrorCodes, HTTP_STATUS } from "@utils/constants.js";
+import { failure } from "@utils/response.js";
 import z from "zod";
 
 export const errorMiddleware = (
