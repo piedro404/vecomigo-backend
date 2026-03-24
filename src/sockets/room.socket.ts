@@ -5,6 +5,8 @@ import { failure, success } from "@utils/response.js";
 import { ErrorCodes } from "@utils/constants.js";
 import { registerVideoSocket } from "./video.socket.js";
 import { videoService } from "@services/video.service.js";
+import { registerChatSocket } from "./chat.socket.js";
+import { chatService } from "@services/chat.service.js";
 
 type Ack<T = any> = (response: T) => void;
 
@@ -24,6 +26,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
         io.to(room.id).emit("room-updated", {
             users: Array.from(room.users.values()),
             videoState: videoService.getVideoState(room.id),
+            chat: chatService.getChatHistory(room.id) || [],
         });
     });
 
@@ -45,6 +48,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
                 success("Joined room", {
                     room,
                     videoState: videoService.getVideoState(roomId),
+                    chat: chatService.getChatHistory(roomId) || [],
                 }),
             );
         }
@@ -52,6 +56,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
         io.to(roomId).emit("room-updated", {
             users: Array.from(room.users.values()),
             videoState: videoService.getVideoState(room.id),
+            chat: chatService.getChatHistory(roomId) || [],
         });
     });
 
@@ -72,6 +77,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
         io.to(roomId).emit("room-updated", {
             users: Array.from(room.users.values()),
             videoState: videoService.getVideoState(room.id),
+            chat: chatService.getChatHistory(room.id) || [],
         });
     });
 
@@ -99,6 +105,7 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
         io.to(roomId).emit("room-updated", {
             users: Array.from(room.users.values()),
             videoState: videoService.getVideoState(room.id),
+            chat: chatService.getChatHistory(room.id) || [],
         });
     });
 
@@ -123,8 +130,10 @@ export const registerRoomSocket = (io: Server, socket: Socket) => {
         io.to(roomId).emit("room-updated", {
             users: Array.from(room.users.values()),
             videoState: videoService.getVideoState(room.id),
+            chat: chatService.getChatHistory(room.id) || [],
         });
     });
 
     registerVideoSocket(io, socket);
+    registerChatSocket(io, socket);
 };

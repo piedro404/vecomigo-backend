@@ -13,6 +13,7 @@ class RoomService {
             id: roomId,
             users: new Map([[host.id, host]]),
             playlist: [],
+            chat: [],
             currentTime: 0,
             isPlaying: false,
             lastUpdate: Date.now(),
