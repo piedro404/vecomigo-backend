@@ -1,4 +1,4 @@
-# 🚗 VeComigo — Backend API
+# 🍿🎥 VeComigo — Backend API
 
 API em tempo real do ecossistema VeComigo. Responsável por gerenciar salas, usuários e toda a comunicação bidirecional via Socket.IO entre os clientes conectados.
 
@@ -46,12 +46,11 @@ O ecossistema é dividido em dois repositórios:
 
 Em vez de o frontend ficar fazendo requisições repetidas pra API pra saber se algo mudou (polling), o Socket.IO mantém uma conexão persistente entre cliente e servidor via WebSocket.
 
-```
-┌─────────────────────┐        conexão persistente        ┌─────────────────┐
-│   Frontend (React)  │ ◀─────────────────────────────── │  Backend (Node) │
-│   socket.on(evento) │                                   │  io.emit(evento)│
-└─────────────────────┘                                   └─────────────────┘
-```
+<img width="1536" height="1024" alt="ChatGPT Image 19 de mai  de 2026, 19_13_29" src="https://github.com/user-attachments/assets/052fc285-af83-451d-a552-6fe166af2cc5" />
+<img width="1736" height="906" alt="ChatGPT Image 19 de mai  de 2026, 20_04_09" src="https://github.com/user-attachments/assets/42692a63-bc05-46f5-8ff8-37ddc8eb06ae" />
+<img width="1736" height="906" alt="ChatGPT Image 19 de mai  de 2026, 20_37_48" src="https://github.com/user-attachments/assets/ca4cfda2-3255-4c50-bb23-40b73c598373" />
+<img width="1736" height="906" alt="ChatGPT Image 19 de mai  de 2026, 20_43_38" src="https://github.com/user-attachments/assets/14de2176-e4dc-4618-9b71-673d50bb1ccd" />
+
 
 O fluxo básico funciona assim:
 
